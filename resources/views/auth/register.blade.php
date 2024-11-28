@@ -18,9 +18,34 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <div class="mt-4 space-x-4">
+
+            <label>
+                Customer
+                <input type="radio" name="userrole" value="customer">
+
+            </label>
+            <label>
+                Seller
+                <input type="radio" name="userrole" value="seller">
+            </label>
+
+        </div>
+        <x-input-error :messages="$errors->get('userrole')" class="mt-2" />
+
+
+        {{-- Contact number --}}
+        <div class="mt-4">
+            <x-input-label for="contactnumber" :value="__('Contact Number')" />
+            <x-text-input id="contactnumber" class="block mt-1 w-full" type="text" name="contactnumber"
+                :value="old('contactnumber')" required autofocus autocomplete="contactnumber" />
+            <x-input-error :messages="$errors->get('contactnumber')" class="mt-2" />
+        </div>
+
+
         {{-- Profile Image --}}
         <input type="file" name="profile" class="file-input file-input-ghost mt-4  bg-white w-full max-w-xs" />
-
+        <x-input-error :messages="$errors->get('profile')" class="mt-2" />
 
         <!-- Password -->
         <div class="mt-4">

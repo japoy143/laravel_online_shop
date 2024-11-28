@@ -23,7 +23,7 @@
 
         {{-- links --}}
         <div class="flex-none font-bold  hidden md:flex">
-            <ul class="menu menu-horizontal px-1 text-lg">
+            <ul class="menu menu-horizontal px-1 text-base">
                 <li>
                     <details>
                         <summary>Categories</summary>
@@ -35,6 +35,11 @@
                 </li>
                 <li><a>Deals</a></li>
                 <li><a>What's New</a></li>
+                @auth
+                    @if (Auth::user()->isadmin)
+                        <li><a href="{{ route('addproducts') }}">Add Products</a></li>
+                    @endif
+                @endauth
 
 
             </ul>

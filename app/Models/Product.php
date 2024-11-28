@@ -14,6 +14,9 @@ class Product extends Model
         "ratings" => array(),
     ];
 
+
+
+
     public function seller()
     {
         return $this->belongsToMany(Seller::class, 'seller_products');

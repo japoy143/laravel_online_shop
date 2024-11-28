@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Seller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -36,6 +37,8 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'profile' => ['required', File::types(['jpg', 'png', 'svg', 'jpeg'])],
+            'contactnumber' => ['required', 'min:11', 'max:11'],
+            'userrole' => ['required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -46,10 +49,26 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'profile_image' => $logoPath,
+            'contactnumber' => $request->contactnumber,
+            'isadmin' => $request->userrole == "seller" ? true : false,
 
         ]);
 
+
+
+        //handling customer and seller
+        if ($request->userrole == 'seller') {
+            Seller::create([
+                'email' => $user->email,
+                'contactnumber' => $user->contactnumber,
+                'user_id' => $user->id,
+            ]);
+        }
+
+
         event(new Registered($user));
+
+
 
         Auth::login($user);
 

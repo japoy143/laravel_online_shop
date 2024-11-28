@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin;
 use App\Models\Product;
 use App\Models\Seller;
 use Illuminate\Database\Migrations\Migration;
