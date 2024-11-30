@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
+use App\Models\Seller;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,5 +30,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Model::unguard();
+
+
+
+
+        Gate::define("edit-product", function (User $user, Product $product) {
+
+            $seller = $product->seller->first();
+            return $seller->user_id == $user->id;
+        });
     }
 }

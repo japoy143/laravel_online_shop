@@ -11,7 +11,8 @@ class Seller extends Model
 
 
 
-    public function products(){
+    public function products()
+    {
         return $this->belongsToMany(Product::class, 'seller_products'); // must be the name of the pivot table when the name doesnt fit to the naming convention
     }
 }

@@ -6,60 +6,16 @@
 
         <section>
             <x-headings.section-heading>Featured Electronics</x-headings.section-heading>
-            @php
-                $products = [
-                    [
-                        'productname' => 'Shoes',
-                        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-                        'imageUrl' => 'resources/images/shoes1.jpg',
-                        'category' => 'Shoes',
-                        'price' => '200',
-                    ],
-                    [
-                        'productname' => 'Headphone',
-                        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-                        'imageUrl' => 'resources/images/headphone1.jpg',
-                        'category' => 'Headphone',
-                        'price' => '150',
-                    ],
-                    [
-                        'productname' => 'Laptop',
-                        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-                        'imageUrl' => 'resources/images/laptop1.jpg',
-                        'category' => 'Laptop',
-                        'price' => '700',
-                    ],
-                    [
-                        'productname' => 'Bag',
-                        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-                        'imageUrl' => 'resources/images/bag1.jpg',
-                        'category' => 'Bag',
-                        'price' => '90',
-                    ],
 
-                    [
-                        'productname' => 'Laptop',
-                        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-                        'imageUrl' => 'resources/images/laptop2.jpg',
-                        'category' => 'Laptop',
-                        'price' => '500',
-                    ],
-                    [
-                        'productname' => 'Bag',
-                        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-                        'imageUrl' => 'resources/images/bag2.jpg',
-                        'category' => 'Bag',
-                        'price' => '190',
-                    ],
-                ];
-            @endphp
             <x-layouts.product-layout>
 
 
+
                 @foreach ($products as $product)
-                    <x-cards.card-product productname="{{ $product['productname'] }}"
-                        description="{{ $product['description'] }}" imageUrl="{{ Vite::asset($product['imageUrl']) }}"
-                        price="{{ $product['price'] }}" category="{{ $product['category'] }}" />
+                    <x-cards.card-product productname="{{ $product->productname }}"
+                        description="{{ $product->description }}"
+                        imageUrl="{{ Vite::asset('storage/app/' . $product->imageUrl) }}" price="{{ $product->price }}"
+                        category="{{ $product->category }}" stocks="{{ $product->stocks }}" />
                 @endforeach
 
             </x-layouts.product-layout>
@@ -73,12 +29,13 @@
             <x-layouts.product-layout>
 
 
-                @foreach ($products as $product)
-                    <x-cards.card-product productname="{{ $product['productname'] }}"
-                        description="{{ $product['description'] }}" imageUrl="{{ Vite::asset($product['imageUrl']) }}"
-                        price="{{ $product['price'] }}" category="{{ $product['category'] }}" />
-                @endforeach
 
+                @foreach ($products as $product)
+                    <x-cards.card-product productname="{{ $product->productname }}"
+                        description="{{ $product->description }}"
+                        imageUrl="{{ Vite::asset('storage/app/' . $product->imageUrl) }}" price="{{ $product->price }}"
+                        category="{{ $product->category }}" stocks="{{ $product->stocks }}" />
+                @endforeach
             </x-layouts.product-layout>
         </section>
 
@@ -89,10 +46,13 @@
             <x-layouts.product-layout>
 
 
+
                 @foreach ($products as $product)
-                    <x-cards.card-product productname="{{ $product['productname'] }}"
-                        description="{{ $product['description'] }}" imageUrl="{{ Vite::asset($product['imageUrl']) }}"
-                        price="{{ $product['price'] }}" category="{{ $product['category'] }}" />
+                    <x-cards.card-product productname="{{ $product->productname }}"
+                        description="{{ $product->description }}"
+                        imageUrl="{{ Vite::asset('storage/app/' . $product->imageUrl) }}"
+                        price="{{ $product->price }}" category="{{ $product->category }}"
+                        stocks="{{ $product->stocks }}" />
                 @endforeach
 
             </x-layouts.product-layout>

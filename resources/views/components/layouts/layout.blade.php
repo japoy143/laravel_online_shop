@@ -11,12 +11,14 @@
 
 <body class=" font-primary">
 
-
+    @php
+        $user = Auth::user();
+    @endphp
 
     <div class="navbar bg-base-100 flex flex-row justify-between">
         {{-- logo --}}
         <div class="">
-            <a class="btn btn-ghost text-xl">
+            <a class="btn btn-ghost text-xl" href="/">
                 <img src="{{ Vite::asset('resources/images/logo.jpg') }}" alt="" class="h-[30px]">
             </a>
         </div>
@@ -36,7 +38,7 @@
                 <li><a>Deals</a></li>
                 <li><a>What's New</a></li>
                 @auth
-                    @if (Auth::user()->isadmin)
+                    @if ($user->isadmin)
                         <li><a href="{{ route('addproducts') }}">Add Products</a></li>
                     @endif
                 @endauth
@@ -78,7 +80,7 @@
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                         <div class="w-10 rounded-full">
                             <img alt="Tailwind CSS Navbar component"
-                                src="{{ Vite::asset('storage/app/' . Auth::user()->profile_image) }}" />
+                                src="{{ Vite::asset('storage/app/' . $user->profile_image) }}" />
                         </div>
                     </div>
                     <ul tabindex="0"
@@ -90,6 +92,12 @@
                             </a>
                         </li>
                         <li><a>Settings</a></li>
+                        {{-- Sellers Products --}}
+                        @auth
+                            @if ($user->isadmin)
+                                <li><a href="{{ route('seller.products', $user->id) }}">MyProducts</a></li>
+                            @endif
+                        @endauth
                         <!-- Authentication -->
                         <li>
                             <form method="POST" action="{{ route('logout') }}">

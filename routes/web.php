@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [ProductController::class, 'index'])->name('home');
 
 
 
@@ -31,6 +29,11 @@ Route::middleware('auth')->group(function () {
     //Products
     Route::get('/addproducts', [ProductController::class, 'create'])->name('addproducts');
     Route::post('/addproducts/{user}', [ProductController::class, 'store'])->name('addproducts.store');
+    Route::get('/myproducts/{user}', [ProductController::class, 'show'])->name('seller.products');
+
+    Route::get('/manageproducts/{product}', [ProductController::class, 'edit'])->name('manageproducts')->middleware('can:edit-product,product');
+    Route::patch('/manageproducts/{product}', [ProductController::class, 'update'])->name('manageproducts.update');
+    Route::delete('/deleteproduct/{product}', [ProductController::class, 'destroy'])->name('deleteproduct');
 });
 
 require __DIR__ . '/auth.php';

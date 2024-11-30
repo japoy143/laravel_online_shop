@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('price');
             $table->string('description');
             $table->string('imageUrl');
+            $table->integer('stocks');
             $table->json('ratings')->nullable();
             $table->timestamps();
         });
