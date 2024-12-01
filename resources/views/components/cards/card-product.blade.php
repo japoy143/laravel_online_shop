@@ -1,24 +1,23 @@
-@props([
-    'productid' => 0,
-    'productname' => '',
-    'description' => '',
-    'imageUrl' => '',
-    'category' => '',
-    'price' => '',
-    'stocks' => 0,
-    'active' => false,
-    'edit' => false,
-])
+@props(['product', 'active' => false, 'edit' => false])
 
 <div class="card rounded-md bg-base-100 w-94 shadow-xl ">
     <figure class=" max-h-[200px]">
-        <img src="{{ $imageUrl }}" alt="{{ $category }}" />
+        <img src="{{ Vite::asset('storage/app/' . $product->imageUrl) }}" alt="{{ $product->category }}" />
+
     </figure>
     <div class="card-body">
-        <h2 class="card-title">{{ $productname }}</h2>
-        <p>{{ $description }}</p>
-        <p>{{ $price }}$</p>
-        <p class=" text-xs">Available Stocks:{{ $stocks }}</p>
+        <h2 class="card-title">{{ $product->productname }}</h2>
+        <p>{{ $product->description }}</p>
+        <p>{{ $product->price }}$</p>
+        <p class=" text-xs">Available Stocks:{{ $product->stocks }}</p>
+
+        <div class=" flex flex-wrap space-x-1">
+            @foreach ($product->producttags as $tag)
+                <div class="p-1 bg-gray-200 text-xs">
+                    <a href="{{ route('sortTag', $tag->name) }}">{{ $tag->name }}</a>
+                </div>
+            @endforeach
+        </div>
         <div class="card-actions justify-end">
             @if (!$active)
                 <button class="btn ">Buy Now</button>
@@ -27,15 +26,27 @@
             {{-- only in seller --}}
             @if ($edit)
                 <div class=" flex flex-row justify-between w-full">
-                    <button class=" btn  bg-red-500" form="delete">Delete</button>
+                    {{-- <form action="{{ route('deleteproduct', $productid) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('deleteproduct', $productid) }}"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                            Delete
+                        </a>
+                    </form> --}}
+
+
+                    <form action="{{ route('deleteproduct', $productid) }}" method="POST" id="delete">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn bg-red-400" type="submit">Delete</button>
+                    </form>
+
                     <a class="btn " href="{{ route('manageproducts', $productid) }}">Edit</a>
 
 
                 </div>
-                <form action="{{ route('deleteproduct', $productid) }}" method="POST" class=" hidden" id="delete">
-                    @csrf
-                    @method('DELETE')
-                </form>
             @endif
         </div>
     </div>

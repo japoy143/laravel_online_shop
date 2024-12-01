@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductTag extends Model
+class Customer extends Model
 {
     use HasFactory;
 
 
-    public function products()
+
+
+    public function cart()
     {
-        return $this->belongsToMany(Product::class, "producttag_product");
+        return $this->belongsToMany(Product::class, 'customer_product');
     }
 }

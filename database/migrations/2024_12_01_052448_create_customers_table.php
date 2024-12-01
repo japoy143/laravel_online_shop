@@ -1,7 +1,8 @@
 <?php
 
+use App\Models\Customer;
 use App\Models\Product;
-use App\Models\ProductTag;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,16 +16,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_tags', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('customername');
+            $table->string('contactnumber');
+            $table->string('email');
+            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
 
-
-        Schema::create('producttag_product', function (Blueprint $table) {
+        Schema::create('customer_product', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ProductTag::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Customer::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
@@ -37,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_tags');
+        Schema::dropIfExists('customers');
     }
 };

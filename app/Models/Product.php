@@ -19,6 +19,18 @@ class Product extends Model
 
     public function seller()
     {
-        return $this->belongsToMany(Seller::class, 'seller_products');
+        return $this->belongsTo(Seller::class,);
+    }
+
+
+    public function customer()
+    {
+        return $this->belongsToMany(Customer::class, "customer_product");
+    }
+
+
+    public function producttags()
+    {
+        return $this->belongsToMany(ProductTag::class, "producttag_product");
     }
 }

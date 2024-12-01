@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Seller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -59,6 +60,14 @@ class RegisteredUserController extends Controller
         //handling customer and seller
         if ($request->userrole == 'seller') {
             Seller::create([
+                'sellername' => $user->name,
+                'email' => $user->email,
+                'contactnumber' => $user->contactnumber,
+                'user_id' => $user->id,
+            ]);
+        } else {
+            Customer::create([
+                'customername' => $user->name,
                 'email' => $user->email,
                 'contactnumber' => $user->contactnumber,
                 'user_id' => $user->id,

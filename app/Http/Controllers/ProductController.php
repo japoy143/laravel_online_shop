@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\ProductTag;
 use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('producttags')->get();
+
 
         return view("welcome", ["products" => $products]);
     }
@@ -54,6 +56,8 @@ class ProductController extends Controller
 
         ]);
 
+        //find the seller
+        $seller = Seller::findOrFail($user->id);
 
         $categories = explode(",", $request->category);
 
@@ -62,16 +66,15 @@ class ProductController extends Controller
         $attributes['category'] = json_encode($categories);
         $attributes['imageUrl'] = $productImagePath;
         $attributes['ratings'] = json_encode($request->ratings);
+        $attributes['seller_id'] = $seller->user_id;
 
-        $product  = Product::create($attributes);
+        $product =   Product::create($attributes);
 
-        //Attach seller to the product
+        foreach ($categories as $category) {
+            $productTag = ProductTag::firstOrCreate(['name' => $category]);
 
-        //Find the seller using the id
-        $seller = Seller::findOrFail($user->id);
-
-        //Attach the product using the products method in seller
-        $seller->products()->attach($product); // if does not work use id
+            $product->producttags()->attach($productTag->id);
+        }
 
 
         return redirect(route('home'));
@@ -167,6 +170,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+
         $product->delete();
         return redirect(route("seller.products", Auth::user()->id));
     }

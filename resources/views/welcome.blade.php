@@ -12,10 +12,7 @@
 
 
                 @foreach ($products as $product)
-                    <x-cards.card-product productname="{{ $product->productname }}"
-                        description="{{ $product->description }}"
-                        imageUrl="{{ Vite::asset('storage/app/' . $product->imageUrl) }}" price="{{ $product->price }}"
-                        category="{{ $product->category }}" stocks="{{ $product->stocks }}" />
+                    <x-cards.card-product :$product />
                 @endforeach
 
             </x-layouts.product-layout>
@@ -31,11 +28,9 @@
 
 
                 @foreach ($products as $product)
-                    <x-cards.card-product productname="{{ $product->productname }}"
-                        description="{{ $product->description }}"
-                        imageUrl="{{ Vite::asset('storage/app/' . $product->imageUrl) }}" price="{{ $product->price }}"
-                        category="{{ $product->category }}" stocks="{{ $product->stocks }}" />
+                    <x-cards.card-product :$product />
                 @endforeach
+
             </x-layouts.product-layout>
         </section>
 
@@ -48,11 +43,7 @@
 
 
                 @foreach ($products as $product)
-                    <x-cards.card-product productname="{{ $product->productname }}"
-                        description="{{ $product->description }}"
-                        imageUrl="{{ Vite::asset('storage/app/' . $product->imageUrl) }}"
-                        price="{{ $product->price }}" category="{{ $product->category }}"
-                        stocks="{{ $product->stocks }}" />
+                    <x-cards.card-product :$product />
                 @endforeach
 
             </x-layouts.product-layout>

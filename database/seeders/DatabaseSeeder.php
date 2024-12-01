@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -113,20 +115,34 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-
-
-
         for ($x = 0; $x <= 20; $x++) {
             $randomKey = array_rand(array_keys($products), 1); // get all the keys or indexes and randomize it
             $randomProduct = $products[$randomKey];
-            $product =   \App\Models\Product::create($randomProduct);
-            if ($x >= 10) {
-                $seller = \App\Models\Seller::find(1);
-                $seller->products()->attach($product->id);
-            } else {
-                $seller = \App\Models\Seller::find(2);
-                $seller->products()->attach($product->id);
+            $mergeData = array_merge($randomProduct, ["seller_id" => 1]);
+            $product =  \App\Models\Product::create($mergeData);
+
+            $allcategory = json_decode($product->category, true);
+
+
+            foreach ($allcategory as $eachCategory) {
+                $productTag = \App\Models\ProductTag::firstOrCreate(["name" => $eachCategory]);
+                $product->producttags()->attach($productTag->id);
             }
         }
+
+
+        //pivot
+        // for ($x = 0; $x <= 20; $x++) {
+        //     $randomKey = array_rand(array_keys($products), 1); // get all the keys or indexes and randomize it
+        //     $randomProduct = $products[$randomKey];
+        //     $product =   \App\Models\Product::create($randomProduct);
+        //     if ($x >= 10) {
+        //         $seller = \App\Models\Seller::find(1);
+        //         $seller->products()->attach($product->id);
+        //     } else {
+        //         $seller = \App\Models\Seller::find(2);
+        //         $seller->products()->attach($product->id);
+        //     }
+        // }
     }
 }

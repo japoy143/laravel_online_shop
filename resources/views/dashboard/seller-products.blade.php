@@ -11,11 +11,7 @@
 
 
             @foreach ($products as $product)
-                <x-cards.card-product productid="{{ $product->id }}" productname="{{ $product->productname }}"
-                    description="{{ $product->description }}"
-                    imageUrl="{{ Vite::asset('storage/app/' . $product->imageUrl) }}" price="{{ $product->price }}"
-                    category="{{ $product->category }}" :active="true" stocks="{{ $product->stocks }}"
-                    :edit="true" />
+                <x-cards.card-product" :$product :active="true" :edit="true" />
             @endforeach
 
         </x-layouts.product-layout>

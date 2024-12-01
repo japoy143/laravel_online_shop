@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FilterProducts;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -26,14 +27,19 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
+
     //Products
     Route::get('/addproducts', [ProductController::class, 'create'])->name('addproducts');
     Route::post('/addproducts/{user}', [ProductController::class, 'store'])->name('addproducts.store');
     Route::get('/myproducts/{user}', [ProductController::class, 'show'])->name('seller.products');
 
     Route::get('/manageproducts/{product}', [ProductController::class, 'edit'])->name('manageproducts')->middleware('can:edit-product,product');
-    Route::patch('/manageproducts/{product}', [ProductController::class, 'update'])->name('manageproducts.update');
+    Route::patch('/manageproducts/{product}', [ProductController::class, 'update'])->name('manageproducts.update')->middleware('can:edit-product,product');
     Route::delete('/deleteproduct/{product}', [ProductController::class, 'destroy'])->name('deleteproduct');
+
+    //filter
+    Route::get('/filterbytag/{tag}', [FilterProducts::class, 'sortByTag'])->name('sortTag');
 });
 
 require __DIR__ . '/auth.php';
