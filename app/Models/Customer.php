@@ -11,7 +11,7 @@ class Customer extends Model
 
 
 
-
+    
     public function cart()
     {
         return $this->belongsToMany(Product::class, 'customer_product');

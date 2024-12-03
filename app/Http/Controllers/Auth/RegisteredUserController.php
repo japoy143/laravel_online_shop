@@ -65,6 +65,14 @@ class RegisteredUserController extends Controller
                 'contactnumber' => $user->contactnumber,
                 'user_id' => $user->id,
             ]);
+
+            //TODO:Test this later
+            Customer::create([
+                'customername' => $user->name,
+                'email' => $user->email,
+                'contactnumber' => $user->contactnumber,
+                'user_id' => $user->id,
+            ]);
         } else {
             Customer::create([
                 'customername' => $user->name,

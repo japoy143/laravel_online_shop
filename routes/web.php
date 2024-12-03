@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FilterProducts;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +41,9 @@ Route::middleware('auth')->group(function () {
 
     //filter
     Route::get('/filterbytag/{tag}', [FilterProducts::class, 'sortByTag'])->name('sortTag');
+
+    //Customer
+    Route::post('/addtocart/{product}', [CustomerController::class, 'cart'])->name('cart');
 });
 
 require __DIR__ . '/auth.php';

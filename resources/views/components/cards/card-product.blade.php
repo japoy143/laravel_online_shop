@@ -20,7 +20,15 @@
         </div>
         <div class="card-actions justify-end">
             @if (!$active)
-                <button class="btn ">Buy Now</button>
+                <div class=" w-full flex flex-row justify-between">
+                    <form action="{{ Auth::user() ? route('cart', $product->id) : route('login') }}"
+                        method="{{ Auth::user() ? 'POST' : 'GET' }}">
+                        @csrf
+                        <input type="submit" class="btn " value="Add To Cart" />
+
+                    </form>
+                    <button class="btn ">Buy Now</button>
+                </div>
             @endif
 
             {{-- only in seller --}}
