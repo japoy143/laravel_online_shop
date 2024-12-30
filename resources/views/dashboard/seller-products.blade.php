@@ -11,7 +11,7 @@
 
 
             @foreach ($products as $product)
-                <x-cards.card-product" :$product :active="true" :edit="true" />
+                <livewire:card-product :product="$product" :edit="true" :active="true" />
             @endforeach
 
         </x-layouts.product-layout>

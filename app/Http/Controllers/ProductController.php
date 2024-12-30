@@ -93,8 +93,9 @@ class ProductController extends Controller
         $auth_user = Auth::user();
         if ($user->id != $auth_user->id) {
             abort(401);
+        } else {
+            return view('dashboard.seller-products', ["products" => $products]);
         }
-        return view('dashboard.seller-products', ["products" => $products]);
     }
 
     /**

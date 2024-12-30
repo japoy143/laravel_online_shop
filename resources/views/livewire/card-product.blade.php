@@ -44,12 +44,14 @@
                         </a>
                     </form> --}}
 
-
+                    {{--
                     <form action="{{ route('deleteproduct', $product->id) }}" method="POST" id="delete">
                         @csrf
                         @method('DELETE')
                         <button class="btn bg-red-400" type="submit">Delete</button>
-                    </form>
+                    </form> --}}
+
+                    <button wire:click="delete({{ $product->id }})" class=" btn bg-red-500">Delete</button>
 
                     <a class="btn " href="{{ route('manageproducts', $product->id) }}">Edit</a>
 

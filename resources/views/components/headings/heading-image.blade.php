@@ -3,6 +3,7 @@
     <div class="flex-1 lg:pl-20 font-bold  text-3xl lg:text-4xl hidden sm:block">
         <h2>Grab 50% Off On Selected Products</h2>
         <button class="mt-2 p-2 bg-black text-lg  font-semibold text-white rounded-md">Buy Now</button>
+
     </div>
 
 </div>

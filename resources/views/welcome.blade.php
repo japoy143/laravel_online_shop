@@ -12,7 +12,7 @@
 
 
                 @foreach ($products as $product)
-                    <x-cards.card-product :$product />
+                    <livewire:card-product :product="$product" />
                 @endforeach
 
             </x-layouts.product-layout>
@@ -28,7 +28,7 @@
 
 
                 @foreach ($products as $product)
-                    <x-cards.card-product :$product />
+                    <livewire:card-product :product="$product" />
                 @endforeach
 
             </x-layouts.product-layout>
@@ -43,7 +43,7 @@
 
 
                 @foreach ($products as $product)
-                    <x-cards.card-product :$product />
+                    <livewire:card-product :product="$product" />
                 @endforeach
 
             </x-layouts.product-layout>

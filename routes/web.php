@@ -4,6 +4,9 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FilterProducts;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Sampleroute;
+use App\Http\Livewire\SellerProducts;
+use App\Models\Seller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,12 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
+    
 
     //Products
     Route::get('/addproducts', [ProductController::class, 'create'])->name('addproducts');
     Route::post('/addproducts/{user}', [ProductController::class, 'store'])->name('addproducts.store');
-    Route::get('/myproducts/{user}', [ProductController::class, 'show'])->name('seller.products');
+    Route::get('/myproducts/{user}', SellerProducts::class)->name('seller.products');
 
     Route::get('/manageproducts/{product}', [ProductController::class, 'edit'])->name('manageproducts')->middleware('can:edit-product,product');
     Route::patch('/manageproducts/{product}', [ProductController::class, 'update'])->name('manageproducts.update')->middleware('can:edit-product,product');
